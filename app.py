@@ -4,24 +4,20 @@ scale = "C" # Sätt default skala
 
 pattern = re.compile(r'^\d+$') # Definiera RegEx pattern för tal
 
-ce = 1
-ke = 273.15
-fa = 33.8
-
 def convert(temp):
     global scale # Använd global variabel
     match scale: # Inte särskilt välskriven, men gör sitt jobb
         case "C":
             temp_c = temp
-            temp_k = temp * ke
-            temp_f = temp * fa
+            temp_k = temp + 273.15
+            temp_f = (temp * 1.8) + 32
         case "K":
-            temp_c = temp - ke
+            temp_c = temp - 273.15
             temp_k = temp
-            temp_f = temp_c * fa
+            temp_f = 1.8 * (temp - 273) + 32
         case "F":
             temp_c = 5/9*(temp-32)
-            temp_k = temp_c * ke
+            temp_k = (temp + 459.67) * 5/9
             temp_f = temp
     return str(temp_c), str(temp_k), str(temp_f)
 
