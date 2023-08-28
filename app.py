@@ -25,6 +25,7 @@ def main():
     global scale
     while True:
         command = input("C/K/F eller temperatur: ")
+        if command.isalpha(): command = command.upper()
         match command:  # Byt skala
             case "C":
                 print("Byter till Celsius.")
