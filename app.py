@@ -4,6 +4,8 @@ scale = "C" # Sätt default skala
 
 pattern = re.compile(r'^\d+$') # Definiera RegEx pattern för tal
 
+loop = True
+
 def convert(temp):
     global scale # Använd global variabel
     match scale: # Inte särskilt välskriven, men gör sitt jobb
@@ -22,8 +24,8 @@ def convert(temp):
     return str(temp_c), str(temp_k), str(temp_f)
 
 def main():
-    global scale
-    while True:
+    global scale, loop
+    while loop:
         command = input("C/K/F eller temperatur: ")
         if command.isalpha(): command = command.upper()
         match command:  # Byt skala
@@ -36,6 +38,9 @@ def main():
             case "F":
                 print("Byter till Farenheit")
                 scale = "F"
+            case "EXIT":
+                print("Hejdå!")
+                loop = False
             case _:
                 if pattern.findall(command): # Använd RegEx för att kolla om command är ett tal
                     c, k, f = convert(float(command))
