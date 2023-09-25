@@ -1,8 +1,8 @@
 import re # Importera modul för RegEx
 
-scale = "C" # Sätt default skala
+scale = "C" # Sätt standardskala till celsius
 
-pattern = re.compile(r'^\d+$') # Definiera RegEx pattern för tal
+pattern = re.compile(r'^\d+$') # Definiera RegEx pattern för att kolla tal
 
 loop = True
 
@@ -26,7 +26,7 @@ def convert(temp):
 def main():
     global scale, loop
     while loop:
-        command = input("C/K/F eller temperatur: ")
+        command = input("C/K/F eller temperatur: ") # Ta input från användaren
         if command.isalpha(): command = command.upper()
         match command:  # Byt skala
             case "C":
@@ -38,11 +38,14 @@ def main():
             case "F":
                 print("Byter till Farenheit")
                 scale = "F"
-            case "EXIT":
-                print("Hejdå!")
+            case "H":
+                # Lång string som håller output för hjälpkommandot 
+                print(" H/h skriver ut en hjälptext där alla kommandon visas.\n A/a avslutar programmet.\n F/f byter till att anta att alla temperaturer utgår från Farenheit\n C/c byter till att anta att alla temperaturer utgår från Celsius\n K/k byter till att anta att alla temperaturer utgår från Kelvin\n Ett tal - skriver ut temperaturen i de två andra skalorna som motsvarar angivna temperaturen.")
+            case "A":
+                print("Avslutar, hejdå!")
                 loop = False
             case _:
-                if pattern.findall(command): # Använd RegEx för att kolla om command är ett tal
+                if pattern.findall(command): # Använd RegEx för att kolla om command är ett tal, endast för att visa att det går. Vanligtvis hade man använd .isnumeric().
                     c, k, f = convert(float(command))
                     print("Celsius: "+c)
                     print("Kelvin: "+k)
